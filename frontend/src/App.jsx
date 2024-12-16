@@ -19,6 +19,7 @@ import Notifications from "./pages/Notifications";
 import Student from "./pages/Student";
 import Profile from "./pages/Profile";
 import StudentDetails from "./pages/StudentDetails";
+import YourProfile from "./pages/YourProfile";
 
 function App() {
   return (
@@ -76,7 +77,7 @@ function App() {
           path="/profile"
           element={
             <MaxWidth>
-              <Profile />
+              <YourProfile />
             </MaxWidth>
           }
         />
@@ -93,6 +94,14 @@ function App() {
           element={
             <MaxWidth>
               <Chats />
+            </MaxWidth>
+          }
+        />
+        <Route
+          path="/edit-profile"
+          element={
+            <MaxWidth>
+              <Profile/>
             </MaxWidth>
           }
         />
