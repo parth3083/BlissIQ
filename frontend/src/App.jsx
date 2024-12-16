@@ -18,6 +18,7 @@ import Chats from "./pages/Chats";
 import Notifications from "./pages/Notifications";
 import Student from "./pages/Student";
 import Profile from "./pages/Profile";
+import StudentDetails from "./pages/StudentDetails";
 
 function App() {
   return (
@@ -64,10 +65,18 @@ function App() {
           }
         />
         <Route
+          path="/students/:id"
+          element={
+            <MaxWidth>
+              <StudentDetails />
+            </MaxWidth>
+          }
+        />
+        <Route
           path="/profile"
           element={
             <MaxWidth>
-              <Profile/>
+              <Profile />
             </MaxWidth>
           }
         />
@@ -111,3 +120,6 @@ function App() {
 }
 
 export default App;
+
+
+{/* */}
