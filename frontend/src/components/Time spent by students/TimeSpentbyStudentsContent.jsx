@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from "react";
 import { FaArrowLeft } from "react-icons/fa6";
-import {FaChalkboardTeacher} from "react-icons/fa"
+import { FaChalkboardTeacher } from "react-icons/fa";
 import { FiHelpCircle } from "react-icons/fi";
 import { MdModeEdit } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
@@ -9,9 +9,11 @@ import image1 from "../../assets/demo.png";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { PolarRadiusAxis, RadialBar, RadialBarChart, Label } from "recharts";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "../ui/chart";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
+import { ChartLegend, ChartLegendContent } from "../ui/chart";
 
-// Memoized Component to avoid re-renders
-const YourProfileContent = React.memo(function YourProfileContent() {
+function TimeSpentbyStudentsContent() {
   const navigate = useNavigate();
 
   // Move function out of inline JSX
@@ -35,6 +37,15 @@ const YourProfileContent = React.memo(function YourProfileContent() {
   const totalVisitors = useMemo(() => {
     return newChartData[0].desktop + newChartData[0].mobile;
   }, [newChartData]);
+
+  const chartData = [
+    { times: 1, month: "January", desktop: 16, mobile: 8 },
+    { times: 2, month: "February", desktop: 15, mobile: 20 },
+    { times: 3, month: "March", desktop: 14, mobile: 10 },
+    { times: 4, month: "April", desktop: 12, mobile: 19 },
+    { times: 5, month: "May", desktop: 19, mobile: 13 },
+    { times: 6, month: "June", desktop: 20, mobile: 10 },
+  ];
 
   return (
     <main className="w-full h-full flex flex-col gap-3">
@@ -86,17 +97,56 @@ const YourProfileContent = React.memo(function YourProfileContent() {
           </article>
 
           {/* Statistics */}
-          <div className="mt-4 flex gap-4">
-            <StatCard title="Total no. of Students" value="123" unit="students" />
-            <StatCard title="Time Spent (mins)" value="12" unit="minutes" />
+                  <div className="mt-4 flex gap-4">
+                  <StatCard title="Time Spent (mins)" value="12" unit="minutes" />
+            <Card className="h-60 w-[60%] p-0">
+              <CardHeader>
+                <CardTitle className="text-lg">
+                  Time Spent by all students
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ChartContainer
+                  config={chartConfig}
+                  className="h-[188px]  w-full -mt-5"
+                >
+                  <BarChart accessibilityLayer data={chartData}>
+                    <CartesianGrid vertical={false} />
+                    <XAxis
+                      dataKey="month"
+                      tickLine={false}
+                      tickMargin={5}
+                      axisLine={false}
+                      tickFormatter={(value) => value.slice(0, 3)}
+                    />
+                    <YAxis tickLine={false} tickMargin={5} axisLine={false} />
+                    <ChartTooltip content={<ChartTooltipContent hideLabel />} />
+                    <ChartLegend content={<ChartLegendContent />} />
+                    <Bar
+                      dataKey="desktop"
+                      stackId="a"
+                      fill="var(--color-desktop)"
+                      radius={[0, 0, 4, 4]}
+                    />
+                    <Bar
+                      dataKey="mobile"
+                      stackId="a"
+                      fill="var(--color-mobile)"
+                      radius={[4, 4, 0, 0]}
+                    />
+                  </BarChart>
+                </ChartContainer>
+              </CardContent>
+            </Card>
+           
           </div>
 
-          <div className="w-full mt-5 flex items-center h-32 justify-between p-3 px-10 bg-blue-300 rounded-lg shadow-md">
-            <p className="text-4xl font-medium flex items-center gap-4">
-              <FaChalkboardTeacher className="text-6xl" /> Live Sessions
+          <div className="w-full mt-5 flex items-center h-20 justify-between p-3 px-10 bg-blue-300 rounded-lg shadow-md">
+            <p className="text-3xl font-medium flex items-center gap-4">
+              <FaChalkboardTeacher className="text-4xl" /> Live Sessions
             </p>
-            <div className="bg-yellow-200 w-16 h-16 flex items-center justify-center rounded-md">
-              <h3 className="text-3xl font-bold">475</h3>
+            <div className="bg-yellow-200 w-12 h-12 flex items-center justify-center rounded-md">
+              <h3 className="text-2xl font-bold">475</h3>
             </div>
           </div>
         </section>
@@ -147,28 +197,26 @@ const YourProfileContent = React.memo(function YourProfileContent() {
       </section>
     </main>
   );
-});
+}
 
-// Extracted StatCard Component
 const StatCard = React.memo(({ title, value, unit }) => (
-  <div className="w-1/2 flex flex-col items-center gap-5 p-3 bg-white rounded-lg shadow-md text-center">
-    <p className="text-lg font-medium">{title}</p>
+  <div className="w-1/2 flex flex-col items-center justify-between gap-5 p-5 bg-white rounded-lg shadow-md text-center">
+    <p className="text-2xl font-medium">{title}</p>
     <h3 className="text-7xl font-bold">
-      {value} <span className="text-2xl font-normal">{unit}</span>
+      {value} <span className="text-xl font-normal">{unit}</span>
     </h3>
   </div>
 ));
 
-// Center Label Function for Chart
 const ChartCenterLabel = (total) => ({ viewBox }) => (
   <text x={viewBox.cx} y={viewBox.cy} textAnchor="middle">
     <tspan x={viewBox.cx} y={(viewBox.cy || 0) - 16} className="text-2xl font-bold">
       {total.toLocaleString()}
     </tspan>
-    <tspan x={viewBox.cx} y={(viewBox.cy || 0) + 4} className="fill-muted-foreground">
-      Visitors
+    <tspan x={viewBox.cx} dy={24} className="text-sm font-medium">
+      Total Students
     </tspan>
   </text>
 );
 
-export default YourProfileContent;
+export default React.memo(TimeSpentbyStudentsContent);

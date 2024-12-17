@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import image1 from "../assets/demo.png";
 import { MdVerified } from "react-icons/md";
 import { FaUserGraduate } from "react-icons/fa6";
@@ -48,7 +48,7 @@ const students = [
 
 // Card Component
 const Card = ({ data }) => (
-  <div className="flex items-center gap-4 p-3 mb-2 bg-white rounded-lg shadow-md">
+  <div className="flex items-center gap-4 p-3 mb-2 border bg-white rounded-lg shadow-md">
     <div className="w-12 h-12 bg-gray-300 overflow-hidden rounded-full">
       <img src={image1} className="w-full h-full object-cover" alt="" />
     </div>
@@ -1184,20 +1184,20 @@ const StudentDetails = () => {
 
         {/* Statistics */}
         <div className="mt-4 flex gap-4 h-[25%]">
-          <div className="w-1/2 flex flex-col p-3 bg-white rounded-lg shadow-md text-center">
+          <Link to={'/total-students'} className="w-1/2 flex flex-col p-3 bg-white rounded-lg shadow-md text-center">
             <p className="text-lg font-medium">Points Earned</p>
             <h3 className="text-7xl font-bold">
               {student.points}{" "}
               <span className="text-2xl font-normal">points</span>
             </h3>
-          </div>
-          <div className="w-1/2 flex flex-col p-3 bg-white rounded-lg shadow-md text-center">
+          </Link>
+          <Link to={'/time-spent'} className="w-1/2 flex flex-col p-3 bg-white rounded-lg shadow-md text-center">
             <p className="text-lg font-medium">Time Spent (mins)</p>
             <h3 className="text-7xl font-bold">
               {student.timeSpent}{" "}
               <span className="text-2xl font-normal">minutes</span>
             </h3>
-          </div>
+          </Link>
         </div>
         <div className="w-full mt-5 flex items-center justify-between p-3 px-10 bg-blue-300 rounded-lg shadow-md">
           <p className="text-lg font-medium text-green-700 flex items-center gap-2">
@@ -1208,11 +1208,11 @@ const StudentDetails = () => {
           </div>
         </div>
         <div className="w-full mt-5 flex items-center justify-between p-3 px-10 bg-blue-300 rounded-lg shadow-md">
-          <p className="text-3xl font-medium flex items-center gap-4">
-            <FaUserGraduate className="text-3xl" /> Student Rank
+          <p className="text-2xl font-medium flex items-center gap-4">
+            <FaUserGraduate className="text-2xl" /> Student Rank
           </p>
-          <div className="bg-yellow-200 w-12 h-12 flex items-center justify-center rounded-md">
-            <h3 className="text-3xl font-bold">{`0${student.rank}`}</h3>
+          <div className="bg-yellow-200 w-10 h-10 flex items-center justify-center rounded-md">
+            <h3 className="text-2xl font-bold">{`0${student.rank}`}</h3>
           </div>
         </div>
       </div>

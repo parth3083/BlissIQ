@@ -20,6 +20,8 @@ import Student from "./pages/Student";
 import Profile from "./pages/Profile";
 import StudentDetails from "./pages/StudentDetails";
 import YourProfile from "./pages/YourProfile";
+import TotalNoOfStudents from "./pages/TotalNoOfStudents";
+import TimeSpendbyStudents from "./pages/TimeSpendbyStudents";
 
 function App() {
   return (
@@ -94,6 +96,22 @@ function App() {
           element={
             <MaxWidth>
               <Chats />
+            </MaxWidth>
+          }
+        />
+        <Route
+          path="/time-spent"
+          element={
+            <MaxWidth>
+              <TimeSpendbyStudents/>
+            </MaxWidth>
+          }
+        />
+        <Route
+          path="/total-students"
+          element={
+            <MaxWidth>
+              <TotalNoOfStudents/>
             </MaxWidth>
           }
         />
